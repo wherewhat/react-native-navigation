@@ -57,7 +57,6 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
     private ModalController modalController;
     private Layout layout;
     @Nullable private PermissionListener mPermissionListener;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -413,7 +412,6 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
     private void handleModalDismissedEvent() {
         if (!modalController.isShowing()) {
             layout.onModalDismissed();
-            OrientationHelper.setOrientation(this, AppStyle.appStyle.orientation);
         }
     }
 
@@ -443,5 +441,8 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
         if (mPermissionListener != null && mPermissionListener.onRequestPermissionsResult(requestCode, permissions, grantResults)) {
             mPermissionListener = null;
         }
+    }
+    public ActivityParams getActivityParams() {
+        return activityParams;
     }
 }

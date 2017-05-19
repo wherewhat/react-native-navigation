@@ -20,7 +20,7 @@ class LeftButton extends MaterialMenuDrawable implements View.OnClickListener {
 
     private TitleBarLeftButtonParams params;
     private final LeftButtonOnClickListener onClickListener;
-    private String navigatorEventId;
+    private final String navigatorEventId;
     private final boolean overrideBackPressInJs;
 
     LeftButton(Context context,
@@ -107,9 +107,5 @@ class LeftButton extends MaterialMenuDrawable implements View.OnClickListener {
 
     private void sendClickEvent() {
         NavigationApplication.instance.getEventEmitter().sendNavigatorEvent(params.eventId, navigatorEventId);
-    }
-
-    void updateNavigatorEventId(String navigatorEventId) {
-        this.navigatorEventId = navigatorEventId;
     }
 }

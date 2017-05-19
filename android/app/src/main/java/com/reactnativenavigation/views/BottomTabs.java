@@ -12,6 +12,8 @@ import com.reactnativenavigation.params.ScreenParams;
 import com.reactnativenavigation.params.StyleParams;
 import com.reactnativenavigation.utils.ViewUtils;
 
+import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BottomTabs extends AHBottomNavigation {
@@ -33,6 +35,7 @@ public class BottomTabs extends AHBottomNavigation {
                     Color.GRAY);
             addItem(item);
             setOnTabSelectedListener(onTabSelectedListener);
+
         }
         setTitlesDisplayState();
     }

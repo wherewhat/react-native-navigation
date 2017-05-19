@@ -12,7 +12,6 @@ public class TitleBarBackground extends TransitionDrawable {
 
     public TitleBarBackground(Drawable... drawables) {
         super(drawables);
-        setCrossFadeEnabled(true);
     }
 
     public void showTranslucentBackground() {
