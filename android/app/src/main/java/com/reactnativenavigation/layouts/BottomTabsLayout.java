@@ -367,7 +367,7 @@ public class BottomTabsLayout extends BaseLayout implements AHBottomNavigation.O
 
     @Override
     public boolean onTabSelected(int position, boolean wasSelected) {
-        if (wasSelected || !params.tabParams.get(position).isTabEnable) {
+        if (wasSelected || !params.tabParams.get(position).isTabEnabled) {
             sendTabReselectedEventToJs(position);
             return false;
         }

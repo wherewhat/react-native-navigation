@@ -9,7 +9,7 @@ public class BaseScreenParams {
     public String screenId;
     public String title;
     public String subtitle;
-    public boolean isTabEnable;
+    public boolean isTabEnabled;
     public Drawable tabIcon;
     public NavigationParams navigationParams;
     public List<TitleBarButtonParams> rightButtons;

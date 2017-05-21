@@ -16,12 +16,48 @@
 
 @implementation RCCTabBarController
 
+UIButton* centerButton;
+NSMutableArray *tabsEnabled;
+
+- (void) viewDidLoad {
+  [super viewDidLoad];
+  
+  centerButton = [UIButton buttonWithType:UIButtonTypeCustom];
+  [centerButton addTarget:self
+             action:@selector(centerButtonPressed)
+   forControlEvents:UIControlEventTouchUpInside];
+  
+  [centerButton setImage:[UIImage imageNamed:@"nav_ww"] forState:UIControlStateNormal];
+  [centerButton setTranslatesAutoresizingMaskIntoConstraints:true];
+  [self.view addSubview:centerButton];
+  [self.view bringSubviewToFront:centerButton];
+}
+
+- (void) viewDidLayoutSubviews {
+  [super viewDidLayoutSubviews];
+  
+  centerButton.center = self.tabBar.center;
+  CGFloat buttonSize = self.tabBar.frame.size.height * 1.3;
+  CGRect frame = centerButton.frame;
+  frame.size = CGSizeMake(buttonSize, buttonSize);
+  frame.origin.y -= 2;
+  [centerButton setFrame:frame];
+}
+
+- (void) centerButtonPressed {
+  [[[RCCManager sharedInstance] getBridge].eventDispatcher sendAppEventWithName:@"wwPost" body:nil];
+}
 
 -(UIInterfaceOrientationMask)supportedInterfaceOrientations {
   return [self supportedControllerOrientations];
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+  if ([tabsEnabled[[tabBarController.viewControllers indexOfObject:viewController]] boolValue] == NO) {
+    [self centerButtonPressed];
+    return NO;
+  }
+  
   id queue = [[RCCManager sharedInstance].getBridge uiManager].methodQueue;
   dispatch_async(queue, ^{
     [[[RCCManager sharedInstance].getBridge uiManager] configureNextLayoutAnimation:nil withCallback:^(NSArray* arr){} errorCallback:^(NSArray* arr){}];
@@ -38,8 +74,6 @@
   } else {
     [RCCTabBarController sendScreenTabPressedEvent:viewController body:nil];
   }
-  
-  
   
   return YES;
 }
@@ -107,6 +141,7 @@
   
   NSMutableArray *viewControllers = [NSMutableArray array];
   
+  tabsEnabled = [NSMutableArray array];
   // go over all the tab bar items
   for (NSDictionary *tabItemLayout in children)
   {
@@ -125,6 +160,16 @@
     // create the tab icon and title
     NSString *title = tabItemLayout[@"props"][@"title"];
     UIImage *iconImage = nil;
+    
+    // Store isTabEnabled value in tabsEnabled array
+    NSNumber* isTabEnabled = tabItemLayout[@"props"][@"isTabEnabled"];
+    
+    if (isTabEnabled != nil) {
+      [tabsEnabled addObject:isTabEnabled];
+    } else {
+      [tabsEnabled addObject:[NSNumber numberWithBool:YES]];
+    }
+    
     id icon = tabItemLayout[@"props"][@"icon"];
     if (icon)
     {

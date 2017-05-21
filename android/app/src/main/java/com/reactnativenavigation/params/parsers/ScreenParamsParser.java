@@ -21,13 +21,13 @@ public class ScreenParamsParser extends Parser {
     private static final String FRAGMENT_CREATOR_CLASS_NAME = "fragmentCreatorClassName";
     private static final String FRAGMENT_CREATOR_PASS_PROPS = "fragmentCreatorPassProps";
     private static final String OVERRIDE_BACK_PRESS = "overrideBackPress";
-    private static final String IS_TAB_ENABLE = "isTabEnable";
+    private static final String IS_TAB_ENABLED = "isTabEnabled";
 
     @SuppressWarnings("ConstantConditions")
     public static ScreenParams parse(Bundle params) {
         ScreenParams result = new ScreenParams();
         result.screenId = params.getString(KEY_SCREEN_ID);
-        result.isTabEnable = params.getBoolean(IS_TAB_ENABLE);
+        result.isTabEnabled = params.getBoolean(IS_TAB_ENABLED);
         assertKeyExists(params, KEY_NAVIGATION_PARAMS);
         result.navigationParams = new NavigationParams(params.getBundle(KEY_NAVIGATION_PARAMS));
 
