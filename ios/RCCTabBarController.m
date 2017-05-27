@@ -105,7 +105,7 @@ NSMutableArray *tabsEnabled;
   
   UIColor *buttonColor = nil;
   UIColor *selectedButtonColor = nil;
-  NSDictionary *tabsStyle = props[@"style"];
+  NSDictionary *tabsStyle = props[@"appStyle"];
   if (tabsStyle)
   {
     NSString *tabBarButtonColor = tabsStyle[@"tabBarButtonColor"];
